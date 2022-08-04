@@ -2,9 +2,11 @@
 
 从git/npm远程仓库中拉取基于ejs的代码模板
 
-## cli
+## 参考
 
-> 使用了该cli的git模板仓库有: <https://github.com/z-juln/pkg-template>
+使用了该cli的git模板仓库有: <https://github.com/z-juln/pkg-template>
+
+## cli
 
 `npm i -g pull-ejs-tpl`
 
