@@ -35,9 +35,7 @@
   "dependencies": {
     "@juln/change-case": "^0.0.4",
     "pull-sparse": "^1.0.0",
-    "super-ejs": "^1.0.3"
-  },
-  "devDependencies": {
+    "super-ejs": "^1.0.3",
     "cac": "^6.7.12",
     "debug": "^4.3.4"
   }
