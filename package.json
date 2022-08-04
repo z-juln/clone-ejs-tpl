@@ -11,8 +11,6 @@
   ],
   "bin": "bin/pull-ejs-tpl",
   "scripts": {
-    "build": "npx tsc",
-    "prepublishOnly": "npm run build",
     "test:git-cli": "export DEBUG=$npm_package_name && node ./bin/pull-ejs-tpl git git@gitlab.hupu.com:foundation-frontend/hupu-fed-ejs-tpls.git -o ./temp/git -d src/component/common --params='{\"name\": \"user-avatar\"}'",
     "test:npm-cli": "export DEBUG=$npm_package_name && node ./bin/pull-ejs-tpl npm cra-template -o ./temp/npm -d ./template"
   },
@@ -41,7 +39,6 @@
   },
   "devDependencies": {
     "cac": "^6.7.12",
-    "debug": "^4.3.4",
-    "typescript": "^4.7.4"
+    "debug": "^4.3.4"
   }
 }
