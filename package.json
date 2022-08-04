@@ -1,0 +1,46 @@
+{
+  "name": "pull-ejs-tpl",
+  "version": "1.0.0",
+  "description": "从git/npm远程仓库中拉取基于ejs的代码模板",
+  "main": "./src/index.js",
+  "typings": "./src/index.d.ts",
+  "files": [
+    "dist/*",
+    "src/*",
+    "bin/*"
+  ],
+  "bin": "bin/pull-ejs-tpl",
+  "scripts": {
+    "build": "npx tsc",
+    "prepublishOnly": "npm run build",
+    "test:git-cli": "export DEBUG=$npm_package_name && node ./bin/pull-ejs-tpl git git@gitlab.hupu.com:foundation-frontend/hupu-fed-ejs-tpls.git -o ./temp/git -d src/component/common --params='{\"name\": \"user-avatar\"}'",
+    "test:npm-cli": "export DEBUG=$npm_package_name && node ./bin/pull-ejs-tpl npm cra-template -o ./temp/npm -d ./template"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/z-juln/pull-ejs-tpl.git"
+  },
+  "keywords": [
+    "pull-ejs-tpl",
+    "pull",
+    "ejs",
+    "template",
+    "git",
+    "npm"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/z-juln/pull-ejs-tpl/issues"
+  },
+  "homepage": "https://github.com/z-juln/pull-ejs-tpl#readme",
+  "dependencies": {
+    "@juln/change-case": "^0.0.4",
+    "pull-sparse": "^1.0.0",
+    "super-ejs": "^1.0.3"
+  },
+  "devDependencies": {
+    "cac": "^6.7.12",
+    "debug": "^4.3.4"
+  }
+}

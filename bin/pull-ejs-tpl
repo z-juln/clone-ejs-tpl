@@ -1,0 +1,52 @@
+#!/usr/bin/env node
+
+const { cac } = require('cac');
+const { name: pkgName, version } = require('../package.json');
+const { gitPullEjsTpl, npmPullEjsTpl } = require('../src/index');
+const cli = cac();
+const debug = require('debug')(pkgName);
+
+const ejsParamsDescription = `ejs编译时参数
+  \tejs编译时参数中已自带changeCase函数(https://www.npmjs.com/package/@juln/change-case)
+  \tparams参数使用方式1: 传递JSON字符串, 如--params="{\\"name\\": \\"xxx\\"}"
+  \tparams参数使用方式2: --params.name=xxx)
+`;
+
+cli
+  .command('git <repository>', '通过git的方式下载模板, 使用该cli的模板仓库如 https://github.com/z-juln/pkg-template ')
+  .option('--output, -o <outputDir>', '输出路径', { default: '.' })
+  .option('--target, -d <targetDir>', '目标目录, 如 -d packages/project-a', { default: '' })
+  .option('--branch, -b <branch>', '分支, 如master、v1.0.0等', { default: 'master' })
+  .option('--params, -p <params>', ejsParamsDescription)
+  .action((repository, opts) => {
+    if (typeof opts.params === 'string') {
+      opts.p = opts.params = JSON.parse(opts.params);
+    }
+    debug('opts: ', { repository, opts });
+    gitPullEjsTpl(repository, {
+      outputDir: opts.output,
+      targetDir: opts.target,
+      branch: opts.branch,
+    }, opts.params);
+  });
+
+cli
+  .command('npm <pkgName>', '通过npm的方式下载模板')
+  .option('--output, -o <outputDir>', '输出路径', { default: '.' })
+  .option('--target, -d <targetDir>', '目标目录, 如 -d packages/project-a', { default: '' })
+  .option('--registry, -r <registry>', 'npm源', { default: 'https://registry.npmjs.org/' })
+  .option('--tag, -t <tag>', '分支, 如latest、1.0.0等', { default: 'latest' })
+  .option('--params, -p <params>', ejsParamsDescription)
+  .action((pkgName, opts) => {
+    debug('opts: ', { pkgName, opts });
+    npmPullEjsTpl(pkgName, {
+      outputDir: opts.output,
+      targetDir: opts.target,
+      registryUrl: opts.registry,
+      tag: opts.tag,
+    }, opts.params);
+  });
+
+cli.help();
+cli.version(version);
+cli.parse();
