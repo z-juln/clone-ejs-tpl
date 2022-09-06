@@ -1,6 +1,6 @@
 {
   "name": "pull-ejs-tpl",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "从git/npm远程仓库中拉取基于ejs的代码模板",
   "main": "./src/index.js",
   "typings": "./src/index.d.ts",
@@ -12,7 +12,8 @@
   "bin": "bin/pull-ejs-tpl",
   "scripts": {
     "test:git-cli": "export DEBUG=$npm_package_name && node ./bin/pull-ejs-tpl git git@gitlab.hupu.com:foundation-frontend/hupu-fed-ejs-tpls.git -o ./temp/git -d src/component/common --params='{\"name\": \"user-avatar\"}'",
-    "test:npm-cli": "export DEBUG=$npm_package_name && node ./bin/pull-ejs-tpl npm cra-template -o ./temp/npm -d ./template"
+    "test:npm-cli": "export DEBUG=$npm_package_name && node ./bin/pull-ejs-tpl npm cra-template -o ./temp/npm -d ./template",
+    "test:local-cli": "export DEBUG=$npm_package_name && node ./bin/pull-ejs-tpl local ./temp/demo ./temp/my-template"
   },
   "repository": {
     "type": "git",

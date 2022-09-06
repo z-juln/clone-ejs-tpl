@@ -1,8 +1,12 @@
 #!/usr/bin/env node
 
 const { cac } = require('cac');
+const path = require('path');
+const superEjs = require('super-ejs');
+const fs = require('fs-extra');
+const changeCase = require('@juln/change-case');
 const { name: pkgName, version } = require('../package.json');
-const { gitPullEjsTpl, npmPullEjsTpl } = require('../src/index');
+const { gitPullEjsTpl, npmPullEjsTpl, localEjsTpl } = require('../src/index');
 const cli = cac();
 const debug = require('debug')(pkgName);
 
@@ -45,6 +49,39 @@ cli
       registryUrl: opts.registry,
       tag: opts.tag,
     }, opts.params);
+  });
+
+cli
+  .command('local <outputDir> <templateDir>', '根据本地模板生成项目代码')
+  .option('--params, -p <params>', ejsParamsDescription)
+  .option('--force, -f', '目录不为空时，是否强制生成代码', { default: false })
+  .option('--parseFilename', '是否解析文件名,文件名为__xxx__即转化为传进来的xxx参数', { default: false })
+  .action((outputDir, templateDir, opts) => {
+    outputDir = path.resolve(outputDir);
+    templateDir = path.resolve(templateDir);
+
+    debug('opts: ', { outputDir, templateDir, opts });
+
+    if (!fs.existsSync(templateDir)) {
+      console.error(`\n模板目录不存在: ${templateDir}\n`);
+      process.exit(1);
+    }
+
+    if (fs.existsSync(outputDir) && !opts.force) {
+      console.error(`\n目标目录不为空: ${outputDir}\n如果想直接生成，可以用--force\n`);
+      process.exit(1);
+    }
+  
+    superEjs.gerenateDir(
+      outputDir,
+      templateDir,
+      { changeCase, ...opts.params },
+      {},
+      {
+        parseFilename: opts.parseFilename ? (original) => original.replace(/__(.+?)__/, '$1') : false,
+        ignore: 'node_modules/**',
+      },
+    );
   });
 
 cli.help();
