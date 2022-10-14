@@ -329,10 +329,10 @@ snake-case@^3.0.4:
     dot-case "^3.0.4"
     tslib "^2.0.3"
 
-super-ejs@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.npmjs.org/super-ejs/-/super-ejs-1.0.3.tgz#afa44d863727a2bd6413086b1fe793407adad2ac"
-  integrity sha512-QLRCYIb8L5QSd2EWAUnPNmsuyapshSc65L9rhKZn6nauh181D1QKC1qGfZUt5NbqCeNCxXFQ8uxsPHI15O0hfg==
+super-ejs@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.npmjs.org/super-ejs/-/super-ejs-1.1.0.tgz#338eb7da0dfe07c4c31e1461d947f06a78b61e8f"
+  integrity sha512-7S7fD9AhbW6auax3hbost+gyJQ/PFa/bPfMXTo0SftcJcGn6NRtJt32y9f5u5ObKfHyrdqXU6EO19LKsWcVJcQ==
   dependencies:
     "@types/ejs" "^3.1.1"
     ejs "^3.1.8"
