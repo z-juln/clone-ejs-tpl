@@ -1,6 +1,6 @@
 {
   "name": "pull-ejs-tpl",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "从git/npm远程仓库中拉取基于ejs的代码模板",
   "main": "./src/index.js",
   "typings": "./src/index.d.ts",
@@ -37,8 +37,11 @@
     "@juln/change-case": "^0.0.4",
     "cac": "^6.7.12",
     "debug": "^4.3.4",
+    "glob": "^8.0.3",
+    "kuler": "^2.0.0",
     "node-watch": "^0.7.3",
     "pull-sparse": "^1.0.0",
+    "rimraf": "^3.0.2",
     "super-ejs": "^1.1.0"
   }
 }

@@ -4,10 +4,13 @@ const { cac } = require('cac');
 const path = require('path');
 const fs = require('fs-extra');
 const { default: watch } = require('node-watch');
+const rimraf = require('rimraf');
+const { glob } = require('glob');
 const superEjs = require('super-ejs');
 const changeCase = require('@juln/change-case');
 const { name: pkgName, version } = require('../package.json');
-const { gitPullEjsTpl, npmPullEjsTpl, localEjsTpl } = require('../src/index');
+const { gitPullEjsTpl, npmPullEjsTpl } = require('../src/index');
+const Kuler = require('kuler');
 const cli = cac();
 const debug = require('debug')(pkgName);
 
@@ -58,24 +61,38 @@ cli
   .option('--force, -f', '目录不为空时，是否强制生成代码', { default: false })
   .option('--parseFilename', '是否解析文件名, 文件名为__xxx__即转化为传进来的xxx参数', { default: false })
   .option('--watch, -w', '是否开启文件监听, 自动重新生成目标代码, 方便模板的开发', { default: false })
+  .option('--watch-ignore', '自动更新模式下需要忽略的文件/目录(glob写法), 默认为node_modules, 可以用"|"分割符写多个', { default: 'node_modules' })
   .action((outputDir, templateDir, opts) => {
     outputDir = path.resolve(outputDir);
+    if (outputDir.slice(-1) === '/') outputDir = outputDir.slice(0, -1);
     templateDir = path.resolve(templateDir);
+    if (templateDir.slice(-1) === '/') templateDir = templateDir.slice(0, -1);
 
     debug('opts: ', { outputDir, templateDir, opts });
 
     if (!fs.existsSync(templateDir)) {
-      console.error(`\n模板目录不存在: ${templateDir}\n`);
+      console.error('\n', Kuler('模板目录不存在: ', '#F00'), templateDir, '\n');
       process.exit(1);
     }
 
     if (fs.existsSync(outputDir) && !opts.force) {
-      console.error(`\n目标目录不为空: ${outputDir}\n如果想直接生成，可以用--force\n`);
+      console.error('\n', Kuler('n目标目录不为空: ', '#F00'), `${outputDir}\n如果想直接生成，可以用--force\n`);
       process.exit(1);
     }
 
+    const findNodeModules1 = glob.sync(`${templateDir}/node_modules/**`, { dot: true });
+    const findNodeModules2 = glob.sync(`${templateDir}/**/**/node_modules/**`, { dot: true });
+    if (findNodeModules1.length > 0 || findNodeModules2.length > 0) {
+      const nodeModulesRootPaths = [findNodeModules1[0], findNodeModules2[0]].filter(Boolean);
+      console.warn('\n', Kuler('当前模板目录下存在node_modules, 这会导致代码生成变慢, 请确认是否是你的失误: ', '#FFD400'), nodeModulesRootPaths, '\n');
+      process.exit();
+    }
+
+    // TODO: 优化watch模式, 针对每个文件进行重新生成
     const generate = async () => {
-      fs.emptyDirSync(outputDir);
+      rimraf.sync(`${outputDir}/!(${opts.watchIgnore})`, {
+        glob: { dot: true }
+      });
       await superEjs.gerenateDir(
         outputDir,
         templateDir,
@@ -91,12 +108,12 @@ cli
     generate();
 
     if (opts.watch) {
-      console.log('\nwatching dir: ', templateDir, '\n');
+      console.log('\n', Kuler('watching dir: ', '#00FF00'), templateDir, '\n');
       watch(templateDir, {
         recursive: true,
         filter: f => !/node_modules/.test(f),
       }, (evt, name) => {
-        console.log('file change: %s', name);
+        console.log(Kuler('file change: ', '#00FF00'), name);
         generate();
       })
     }
