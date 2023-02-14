@@ -40,7 +40,7 @@
     "glob": "^8.0.3",
     "kuler": "^2.0.0",
     "node-watch": "^0.7.3",
-    "pull-sparse": "^1.0.0",
+    "pull-sparse": "^1.0.1",
     "rimraf": "^3.0.2",
     "super-ejs": "^1.1.0"
   }

@@ -331,10 +331,10 @@ path-is-absolute@^1.0.0:
   resolved "https://registry.npmjs.org/path-is-absolute/-/path-is-absolute-1.0.1.tgz#174b9268735534ffbc7ace6bf53a5a9e1b5c5f5f"
   integrity sha512-AVbw3UJ2e9bq64vSaS9Am0fje1Pa8pbGqTTsmXfaIiMpnr5DlDhfJOuLj9Sf95ZPVDAUerDfEk88MPmPe7UCQg==
 
-pull-sparse@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.npmjs.org/pull-sparse/-/pull-sparse-1.0.0.tgz#4923656867389a4da343b540b27f5a750b2a575c"
-  integrity sha512-BH3CeM4dySUChHH66e5c1Xo3QROhLQiw+1qa4tJBlwurzxd3eNe9D6xgImH8Ie3L8Aiqc2Oe3P9FinUFsa/0Tw==
+pull-sparse@^1.0.1:
+  version "1.0.1"
+  resolved "http://hnpm.hupu.io/pull-sparse/-/pull-sparse-1.0.1.tgz#569acb4d3a1e5ba80ddda778dc545f18b6446813"
+  integrity sha512-jYL5c9QtTuYTlRhjvcI/LJCT18Y0qW4C422Mdgj5+iroJLS2srsQhz3ImCHl28dV9swQngFiOLC53aFV3eSZYg==
   dependencies:
     fs-extra "^10.1.0"
     mvdir "^1.0.21"

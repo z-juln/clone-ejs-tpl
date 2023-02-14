@@ -2,6 +2,7 @@
 
 const { cac } = require('cac');
 const path = require('path');
+const { spawn } = require('child_process');
 const fs = require('fs-extra');
 const { default: watch } = require('node-watch');
 const rimraf = require('rimraf');
@@ -119,24 +120,29 @@ cli
     }
   });
 
-// TODO: generate or update lock file
-// cli
-//   .command('install [...pkgList]', '在模板目录下安装包, 并生成或更新npm/yarn/pnpm的lock文件')
-//   .option('--tplDir, -t <params>', '模板目录所在路径', { default: './' })
-//   .option('--targetDir -d <targetDir>', '在模板目录下的哪个路径下生成/更新lock文件', { default: './' })
-//   .option('--client, -c <client>', '目录不为空时，是否强制生成代码', { default: false })
-//   .option('--use-cache', '是否保留缓存目录, 这样下次更新lock文件会更快, 但会占据磁盘空间', { default: false })
-//   .action((pkgList, opts) => {
-//     templateDir = path.resolve(templateDir);
+// generate or update lock file
+cli
+  .command('local-install [...pkgList]', '在模板目录下安装包, 并生成或更新npm/yarn/pnpm的lock文件, 主要用于模板的开发')
+  .option('--templateDir, -t <templateDir>', '模板目录所在路径', { default: './' })
+  .option('--targetDir -d <targetDir>', '在模板目录下的哪个路径下生成/更新lock文件', { default: './' })
+  .option('--client, -c <client>', '目录不为空时，是否强制生成代码', { default: false })
+  .option('--use-cache', '是否保留缓存目录, 这样下次更新lock文件会更快, 但会占据磁盘空间', { default: false })
+  .action((pkgList, opts) => {
+    templateDir = path.resolve(templateDir);
 
-//     debug('opts: ', { pkgList, opts });
+    debug('opts: ', { pkgList, opts });
 
-//     if (!fs.existsSync(templateDir)) {
-//       console.error(`\n模板目录不存在: ${templateDir}\n`);
-//       process.exit(1);
-//     }
+    if (!fs.existsSync(templateDir)) {
+      console.error(`\n模板目录不存在: ${templateDir}\n`);
+      process.exit(1);
+    }
 
-//   });
+    const args = ['install', ...pkgList, opts['--']].filter(Boolean);
+    const cmd = `${opts.client} ${args.join(' ')}`;
+    console.log(Kuler(`Running \`${cmd}\``, '#00FF00'));
+
+    spawn(opts.client, args, { stdio: 'inherit' });
+  });
 
 cli.help();
 cli.version(version);
