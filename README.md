@@ -16,7 +16,7 @@ or
 
 ## usage2: 根据 api 自定义 cli
 
-[doc](./自定义 cli.md)
+<a href='./custom-cli.md'>doc</a>
 
 ## 最基础的用法: 根据定义的项目模板生成项目代码
 
