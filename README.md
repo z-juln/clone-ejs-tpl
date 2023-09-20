@@ -1,12 +1,10 @@
 # pull-ejs-tpl
 
-从git/npm远程仓库中拉取基于ejs的代码模板
+从 git/npm 远程仓库中拉取基于 ejs 的代码模板
 
-## 参考
+推荐: 将项目模板定义到 git 仓库上
 
-使用了该cli的git模板仓库有: <https://github.com/z-juln/pkg-template>
-
-## cli
+## usage1: cli
 
 `npm i -g pull-ejs-tpl`
 
@@ -16,30 +14,16 @@ or
 
 `npx pull-ejs-tpl -h`
 
-## usage
+## usage2: 根据 api 自定义 cli
 
-```javascript
-const { gitPullEjsTpl, npmPullEjsTpl } = require('pull-ejs-tpl');
-const path = require('path');
+[doc](./自定义 cli.md)
 
-gitPullEjsTpl(
-  'you git repository',
-  {
-    outputDir: path.resolve('.'), // 默认为'.'
-    targetDir: 'projects/ssr', // 目标目录（git仓库中的相对目录）, 默认为''
-    branch: 'v1.0.0', // 默认为master
-  },
-  { name: 'xxx' }, // ejs编译时的参数，参数中已自带了changeCase函数(https://www.npmjs.com/package/@juln/change-case)
-);
+## 最基础的用法: 根据定义的项目模板生成项目代码
 
-npmPullEjsTpl(
-  'cra-template', // package name
-  {
-    outputDir: path.resolve('.'), // 默认为'.'
-    targetDir: 'template', // 目标目录（npm包目录结构中的相对目录）, 默认为''
-    registryUrl: 'https://registry.npmjs.org/', // 默认为'https://registry.npmjs.org/'
-    tag: 'beta', // 默认为'latest'
-  },
-  { name: 'xxx' }, // ejs编译时的参数，参数中已自带了changeCase函数(https://www.npmjs.com/package/@juln/change-case)
-);
-```
+使用: `npx pull-ejs-tpl git https://github.com/z-juln/pull-ejs-tpl-demo1 -o=./ -d project-demo1 --params.name=demo --params.description="this is demo"`
+
+### 参考案例
+
+git 模板仓库: <https://github.com/z-juln/pull-ejs-tpl-demo1>
+
+使用: `npx pull-ejs-tpl git https://github.com/z-juln/pull-ejs-tpl-demo1 -o=./my-demo -d project-demo1 --params.name=demo --params.description="this is demo"`
