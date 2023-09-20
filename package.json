@@ -1,6 +1,6 @@
 {
   "name": "pull-ejs-tpl",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "从git/npm远程仓库中拉取基于ejs的代码模板",
   "main": "./src/index.js",
   "typings": "./src/index.d.ts",
