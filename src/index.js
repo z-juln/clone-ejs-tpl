@@ -2,7 +2,12 @@ const { gitPull, npmPull } = require('pull-sparse');
 const superEjs = require('super-ejs');
 const changeCase = require('@juln/change-case');
 
-const gitPullEjsTpl = async (repository, opts = {}, params = {}) => {
+const gitPullEjsTpl = async (
+  repository,
+  opts = {},
+  params = {},
+  afterPull,
+) => {
   opts = Object.assign({
     targetDir: '',
     outputDir: '.',
@@ -16,6 +21,7 @@ const gitPullEjsTpl = async (repository, opts = {}, params = {}) => {
     renameTargetDir: '',
     withDotGit: false,
   });
+  afterPull?.();
   await superEjs.gerenateDir(
     opts.outputDir,
     opts.outputDir,
@@ -23,7 +29,12 @@ const gitPullEjsTpl = async (repository, opts = {}, params = {}) => {
   );
 };
 
-const npmPullEjsTpl = async (pkgName, opts = {}, params = {}) => {
+const npmPullEjsTpl = async (
+  pkgName,
+  opts = {},
+  params = {},
+  afterPull,
+) => {
   opts = Object.assign({
     registryUrl: 'https://registry.npmjs.org/',
     targetDir: '',
@@ -38,6 +49,7 @@ const npmPullEjsTpl = async (pkgName, opts = {}, params = {}) => {
     tag: opts.tag,
     renameTargetDir: '',
   });
+  afterPull?.();
   await superEjs.gerenateDir(
     opts.outputDir,
     opts.outputDir,

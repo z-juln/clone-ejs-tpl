@@ -13,7 +13,17 @@ const { name: pkgName, version } = require('../package.json');
 const { gitPullEjsTpl, npmPullEjsTpl } = require('../src/index');
 const Kuler = require('kuler');
 const cli = cac();
+const ora = require('ora');
 const debug = require('debug')(pkgName);
+
+const createPullSpinner = () => {
+  const spinner = ora('模板拉取中...\n').start();
+  setTimeout(() => {
+    spinner.color = 'yellow';
+    spinner.text = '模板拉取速度取决于网络情况, 请耐心等待...\n';
+  }, 1000);
+  return spinner.stop.bind(spinner);
+};
 
 const catchGenerateError = (error) => {
   if (error?.type === 'superEjsParseError') {
@@ -47,6 +57,7 @@ cli
       opts.p = opts.params = JSON.parse(opts.params);
     }
     debug('opts: ', { repository, opts });
+    const closeSpinner = createPullSpinner();
     gitPullEjsTpl(
       repository,
       {
@@ -55,6 +66,7 @@ cli
         branch: opts.branch,
       },
       opts.params,
+      closeSpinner,
     )
       .catch(catchGenerateError);
   });
@@ -68,6 +80,7 @@ cli
   .option('--params, -p <params>', ejsParamsDescription)
   .action((pkgName, opts) => {
     debug('opts: ', { pkgName, opts });
+    const closeSpinner = createPullSpinner();
     npmPullEjsTpl(
       pkgName,
       {
@@ -77,6 +90,7 @@ cli
         tag: opts.tag,
       },
       opts.params,
+      closeSpinner,
     )
       .catch(catchGenerateError);
   });
