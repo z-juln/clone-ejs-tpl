@@ -292,7 +292,7 @@ no-case@^3.0.4:
 
 node-watch@^0.7.3:
   version "0.7.3"
-  resolved "http://hnpm.hupu.io/node-watch/-/node-watch-0.7.3.tgz#6d4db88e39c8d09d3ea61d6568d80e5975abc7ab"
+  resolved "http://registry.npmjs.org/node-watch/-/node-watch-0.7.3.tgz#6d4db88e39c8d09d3ea61d6568d80e5975abc7ab"
   integrity sha512-3l4E8uMPY1HdMMryPRUAl+oIHtXtyiTlIiESNSVSNxcPfzAFzeTbXFQkZfAwBbo0B1qMSG8nUABx+Gd+YrbKrQ==
 
 once@^1.3.0:
@@ -333,7 +333,7 @@ path-is-absolute@^1.0.0:
 
 pull-sparse@^1.0.1:
   version "1.0.1"
-  resolved "http://hnpm.hupu.io/pull-sparse/-/pull-sparse-1.0.1.tgz#569acb4d3a1e5ba80ddda778dc545f18b6446813"
+  resolved "http://registry.npmjs.org/pull-sparse/-/pull-sparse-1.0.1.tgz#569acb4d3a1e5ba80ddda778dc545f18b6446813"
   integrity sha512-jYL5c9QtTuYTlRhjvcI/LJCT18Y0qW4C422Mdgj5+iroJLS2srsQhz3ImCHl28dV9swQngFiOLC53aFV3eSZYg==
   dependencies:
     fs-extra "^10.1.0"
@@ -363,10 +363,10 @@ snake-case@^3.0.4:
     dot-case "^3.0.4"
     tslib "^2.0.3"
 
-super-ejs@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.npmjs.org/super-ejs/-/super-ejs-1.1.0.tgz#338eb7da0dfe07c4c31e1461d947f06a78b61e8f"
-  integrity sha512-7S7fD9AhbW6auax3hbost+gyJQ/PFa/bPfMXTo0SftcJcGn6NRtJt32y9f5u5ObKfHyrdqXU6EO19LKsWcVJcQ==
+super-ejs@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/super-ejs/-/super-ejs-1.1.1.tgz#6640f7c47fd6fbd1b6c668e54dc9e0dde30af5b3"
+  integrity sha512-xVE6rpx43BP/ba+bT/OqjHE2ZF9GC8QQbFYx77okj93EYX33+zQnBcyX/hEMewJCHY2TQlgNVFUqbyJTRntOQg==
   dependencies:
     "@types/ejs" "^3.1.1"
     ejs "^3.1.8"
