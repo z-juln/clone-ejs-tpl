@@ -15,6 +15,21 @@ const Kuler = require('kuler');
 const cli = cac();
 const debug = require('debug')(pkgName);
 
+const catchGenerateError = (error) => {
+  if (error?.type === 'superEjsParseError') {
+    console.error('\n', Kuler('生成报错, 生成报错对应的文件将不做生成处理, 即返回原模板的内容:', '#F00'));
+    console.error('\n', Kuler('请检查以下对应的模板文件是否有问题(不符合ejs语法):', '#F00'));
+    const lines = [];
+    error.data.forEach(({ path, error }) => {
+      lines.push(Kuler(`    ${path}`, '#999'));
+      lines.push(Kuler(`        ${error}`, '#8b0000'));
+    });
+    console.error(lines.join('\n'));
+    return;
+  }
+  throw error;
+};
+
 const ejsParamsDescription = `ejs编译时参数
   \tejs编译时参数中已自带changeCase函数(https://www.npmjs.com/package/@juln/change-case)
   \tparams参数使用方式1: 传递JSON字符串, 如--params="{\\"name\\": \\"xxx\\"}"
@@ -32,11 +47,16 @@ cli
       opts.p = opts.params = JSON.parse(opts.params);
     }
     debug('opts: ', { repository, opts });
-    gitPullEjsTpl(repository, {
-      outputDir: opts.output,
-      targetDir: opts.target,
-      branch: opts.branch,
-    }, opts.params);
+    gitPullEjsTpl(
+      repository,
+      {
+        outputDir: opts.output,
+        targetDir: opts.target,
+        branch: opts.branch,
+      },
+      opts.params,
+    )
+      .catch(catchGenerateError);
   });
 
 cli
@@ -48,12 +68,17 @@ cli
   .option('--params, -p <params>', ejsParamsDescription)
   .action((pkgName, opts) => {
     debug('opts: ', { pkgName, opts });
-    npmPullEjsTpl(pkgName, {
-      outputDir: opts.output,
-      targetDir: opts.target,
-      registryUrl: opts.registry,
-      tag: opts.tag,
-    }, opts.params);
+    npmPullEjsTpl(
+      pkgName,
+      {
+        outputDir: opts.output,
+        targetDir: opts.target,
+        registryUrl: opts.registry,
+        tag: opts.tag,
+      },
+      opts.params,
+    )
+      .catch(catchGenerateError);
   });
 
 cli
@@ -77,7 +102,7 @@ cli
     }
 
     if (fs.existsSync(outputDir) && !opts.force) {
-      console.error('\n', Kuler('n目标目录不为空: ', '#F00'), `${outputDir}\n如果想直接生成，可以用--force\n`);
+      console.error('\n', Kuler('目标目录不为空: ', '#F00'), `${outputDir}\n如果想直接生成，可以用--force\n`);
       process.exit(1);
     }
 
@@ -90,11 +115,11 @@ cli
     }
 
     // TODO: 优化watch模式, 针对每个文件进行重新生成
-    const generate = async () => {
+    const generate = () => {
       rimraf.sync(`${outputDir}/!(${opts.watchIgnore})`, {
         glob: { dot: true }
       });
-      await superEjs.gerenateDir(
+      superEjs.gerenateDir(
         outputDir,
         templateDir,
         { changeCase, ...opts.params },
@@ -103,7 +128,8 @@ cli
           parseFilename: opts.parseFilename ? (original) => original.replace(/__(.+?)__/, '$1') : false,
           ignore: 'node_modules/**',
         },
-      );
+      )
+        .catch(catchGenerateError);
     };
 
     generate();

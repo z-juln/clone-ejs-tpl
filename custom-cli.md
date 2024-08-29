@@ -2,7 +2,7 @@
 
 ## usage
 
-```javascript
+```typescript
 const { gitPullEjsTpl, npmPullEjsTpl } = require("pull-ejs-tpl");
 const path = require("path");
 
@@ -14,7 +14,19 @@ gitPullEjsTpl(
     branch: "v1.0.0", // 默认为master
   },
   { name: "xxx" } // ejs编译时的参数，参数中已自带了changeCase函数(https://www.npmjs.com/package/@juln/change-case)
-);
+)
+  .catch(err => {
+    if (err?.type === 'superEjsParseError') {
+      type Err = {
+        type: 'superEjsParseError';
+        data: {
+          path: string;
+          error: unknown;
+        }[];
+      };
+      console.log(err.data);
+    }
+  });
 
 npmPullEjsTpl(
   "cra-template", // package name
@@ -25,5 +37,17 @@ npmPullEjsTpl(
     tag: "beta", // 默认为'latest'
   },
   { name: "xxx" } // ejs编译时的参数，参数中已自带了changeCase函数(https://www.npmjs.com/package/@juln/change-case)
-);
+)
+  .catch(err => {
+    if (err?.type === 'superEjsParseError') {
+      type Err = {
+        type: 'superEjsParseError';
+        data: {
+          path: string;
+          error: unknown;
+        }[];
+      };
+      console.log(err.data);
+    }
+  });
 ```

@@ -14,6 +14,26 @@
   resolved "https://registry.npmjs.org/@types/ejs/-/ejs-3.1.1.tgz#29c539826376a65e7f7d672d51301f37ed718f6d"
   integrity sha512-RQul5wEfY7BjWm0sYY86cmUN/pcXWGyVxWX93DFFJvcrxax5zKlieLwA3T77xJGwNcZW0YW6CYG70p1m8xPFmA==
 
+"@types/glob@^8.1.0":
+  version "8.1.0"
+  resolved "https://registry.yarnpkg.com/@types/glob/-/glob-8.1.0.tgz#b63e70155391b0584dce44e7ea25190bbc38f2fc"
+  integrity sha512-IO+MJPVhoqz+28h1qLAcBEH2+xHMK6MTyHJc7MTnnYb6wsoLR29POVGJ7LycmVXIqyy/4/2ShP5sUwTXuOwb/w==
+  dependencies:
+    "@types/minimatch" "^5.1.2"
+    "@types/node" "*"
+
+"@types/minimatch@^5.1.2":
+  version "5.1.2"
+  resolved "https://registry.yarnpkg.com/@types/minimatch/-/minimatch-5.1.2.tgz#07508b45797cb81ec3f273011b054cd0755eddca"
+  integrity sha512-K0VQKziLUWkVKiRVrx4a40iPaxTUefQmjtkQofBkYRcoaaL/8rhwDWww9qWbrgicNOgnpIsMxyNIUM4+n6dUIA==
+
+"@types/node@*":
+  version "22.5.1"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-22.5.1.tgz#de01dce265f6b99ed32b295962045d10b5b99560"
+  integrity sha512-KkHsxej0j9IW1KKOOAA/XBA0z08UFSrRQHErzEfA3Vgq57eXIMYboIlHJuYIfd+lwCQjtKqUu3UnmKbtUc9yRw==
+  dependencies:
+    undici-types "~6.19.2"
+
 ansi-styles@^4.1.0:
   version "4.3.0"
   resolved "https://registry.npmjs.org/ansi-styles/-/ansi-styles-4.3.0.tgz#edd803628ae71c04c85ae7a0906edad34b648937"
@@ -217,9 +237,9 @@ inherits@2:
   resolved "https://registry.npmjs.org/inherits/-/inherits-2.0.4.tgz#0fa2c64f932917c3433a0ded55363aae37416b7c"
   integrity sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==
 
-isbinaryfile@^5.0.0:
+isbinaryfile@5.0.0:
   version "5.0.0"
-  resolved "https://registry.npmjs.org/isbinaryfile/-/isbinaryfile-5.0.0.tgz#034b7e54989dab8986598cbcea41f66663c65234"
+  resolved "https://registry.yarnpkg.com/isbinaryfile/-/isbinaryfile-5.0.0.tgz#034b7e54989dab8986598cbcea41f66663c65234"
   integrity sha512-UDdnyGvMajJUWCkib7Cei/dvyJrrvo4FIrsvSFWdPpXSUorzXrDJ0S+X5Q4ZlasfPjca4yqCNNsjbCeiy8FFeg==
 
 isdir@^2.0.1:
@@ -363,16 +383,17 @@ snake-case@^3.0.4:
     dot-case "^3.0.4"
     tslib "^2.0.3"
 
-super-ejs@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/super-ejs/-/super-ejs-1.1.1.tgz#6640f7c47fd6fbd1b6c668e54dc9e0dde30af5b3"
-  integrity sha512-xVE6rpx43BP/ba+bT/OqjHE2ZF9GC8QQbFYx77okj93EYX33+zQnBcyX/hEMewJCHY2TQlgNVFUqbyJTRntOQg==
+super-ejs@^1.1.6:
+  version "1.1.6"
+  resolved "https://registry.yarnpkg.com/super-ejs/-/super-ejs-1.1.6.tgz#5210b3cb36c16fa396ad98773a4074a1bb716394"
+  integrity sha512-prxZ60AWF+Y5iObkP4qkzconvG9wZCfjawpbvMPl6opkIM880qD4wcyFAWsvkWSltISNNMs8RJ9CN6bumY09cg==
   dependencies:
     "@types/ejs" "^3.1.1"
+    "@types/glob" "^8.1.0"
     ejs "^3.1.8"
     fs-extra "^10.1.0"
     glob "^8.0.3"
-    isbinaryfile "^5.0.0"
+    isbinaryfile "5.0.0"
     isdir "^2.0.1"
 
 supports-color@^7.1.0:
@@ -386,6 +407,11 @@ tslib@^2.0.3:
   version "2.4.0"
   resolved "https://registry.npmjs.org/tslib/-/tslib-2.4.0.tgz#7cecaa7f073ce680a05847aa77be941098f36dc3"
   integrity sha512-d6xOpEDfsi2CZVlPQzGeux8XMwLT9hssAsaPYExaQMuYskwb+x1x7J371tWlbBdWHroy99KnVB6qIkUbs5X3UQ==
+
+undici-types@~6.19.2:
+  version "6.19.8"
+  resolved "https://registry.yarnpkg.com/undici-types/-/undici-types-6.19.8.tgz#35111c9d1437ab83a7cdc0abae2f26d88eda0a02"
+  integrity sha512-ve2KP6f/JnbPBFyobGHuerC9g1FYGn/F8n1LWTwNxCEzd6IfqTwUQcNXgEtmmQ6DlRrC1hrSrBnCZPokRrDHjw==
 
 universalify@^2.0.0:
   version "2.0.0"
