@@ -1,3 +1,17 @@
+<p align="center">
+  <a href="https://github.com/z-juln/pull-ejs-tpl">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="./icon/light-mini.png">
+      <img src="./icon/dark-mini.png" height="128">
+    </picture>
+    <h1 align="center">pull-ejs-tpl</h1>
+  </a>
+</p>
+
+<p align="center">
+  <a aria-label="NPM version" href="https://www.npmjs.com/package/pull-ejs-tpl"><img alt="" src="https://img.shields.io/npm/v/pull-ejs-tpl.svg?style=for-the-badge&labelColor=000000"></a>
+</p>
+
 # pull-ejs-tpl
 
 从 git/npm 远程仓库中拉取基于 ejs 的代码模板
